@@ -1,7 +1,7 @@
-/**
- * Ceylon Tourism - Main JavaScript File
- * Handles Routing, State Management, Rendering, Filters, and Reservation Engine.
- */
+const AFFILIATE_CONFIG = {
+    aid: 'YOUR_AFFILIATE_ID', // Replace with your real Booking.com Affiliate ID
+    enabled: true             // Set to true to redirect to Booking.com, false for local wizard
+};
 
 // ==========================================
 // Mock Database
@@ -654,8 +654,9 @@ class CeylonTourismApp {
                                 <span class="price-num">$${hotel.price}</span>
                                 <span class="price-label">per night</span>
                             </div>
-                            <button class="btn btn-primary" onclick="app.openBookingModal('${hotel.id}')">
-                                Book Now
+                            <button class="btn btn-primary" onclick="app.openBookingModal('${hotel.id}')" style="display: inline-flex; align-items: center; gap: 6px;">
+                                <span>${AFFILIATE_CONFIG.enabled ? 'Book on Booking.com' : 'Book Now'}</span>
+                                ${AFFILIATE_CONFIG.enabled ? '<i data-lucide="external-link" style="width: 14px; height: 14px;"></i>' : ''}
                             </button>
                         </div>
                     </div>
@@ -1132,6 +1133,40 @@ class CeylonTourismApp {
                 window.location.hash = '#bookings';
             });
         }
+
+        // Setup Import Booking Button and Modal Listeners
+        const btnOpenImport = document.getElementById('btn-open-import-modal');
+        if (btnOpenImport) {
+            btnOpenImport.addEventListener('click', () => this.openImportModal());
+        }
+
+        const btnCloseImport = document.getElementById('close-import-modal');
+        if (btnCloseImport) {
+            btnCloseImport.addEventListener('click', () => this.closeImportModal());
+        }
+
+        // Close import modal when clicking backdrop
+        const importModal = document.getElementById('import-modal');
+        if (importModal) {
+            importModal.addEventListener('click', (e) => {
+                if (e.target === importModal) this.closeImportModal();
+            });
+        }
+
+        // Hotel selection change in import modal should update room categories
+        const importHotelSelect = document.getElementById('import-hotel-id');
+        if (importHotelSelect) {
+            importHotelSelect.addEventListener('change', () => this.updateImportRoomTypes());
+        }
+
+        // Submit import form
+        const btnImportSubmit = document.getElementById('btn-import-submit');
+        if (btnImportSubmit) {
+            btnImportSubmit.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.handleImportSubmit();
+            });
+        }
     }
 
     // ==========================================
@@ -1256,6 +1291,14 @@ class CeylonTourismApp {
         const hotel = HOTELS_DB.find(h => h.id === hotelId);
         if (!hotel) return;
 
+        if (AFFILIATE_CONFIG.enabled) {
+            // Open Booking.com search results for this hotel in a new tab
+            const searchQuery = encodeURIComponent(hotel.name + ' ' + hotel.location + ' Sri Lanka');
+            const url = `https://www.booking.com/searchresults.html?ss=${searchQuery}&aid=${AFFILIATE_CONFIG.aid}`;
+            window.open(url, '_blank');
+            return;
+        }
+
         this.selectedHotel = hotel;
         this.currentStep = 1;
 
@@ -1324,6 +1367,96 @@ class CeylonTourismApp {
         document.getElementById('booking-modal').classList.remove('open');
         document.body.style.overflow = '';
         this.selectedHotel = null;
+    }
+
+    openImportModal() {
+        const hotelSelect = document.getElementById('import-hotel-id');
+        if (!hotelSelect) return;
+
+        // Populate hotels dropdown
+        hotelSelect.innerHTML = HOTELS_DB.map(h => 
+            `<option value="${h.id}">${h.name} (${h.location})</option>`
+        ).join('');
+
+        // Trigger dynamic room population for initial selection
+        this.updateImportRoomTypes();
+
+        document.getElementById('import-modal').classList.add('open');
+        document.body.style.overflow = 'hidden';
+
+        if (window.lucide) {
+            window.lucide.createIcons();
+        }
+    }
+
+    closeImportModal() {
+        document.getElementById('import-modal').classList.remove('open');
+        document.body.style.overflow = '';
+        document.getElementById('import-form').reset();
+    }
+
+    updateImportRoomTypes() {
+        const hotelSelect = document.getElementById('import-hotel-id');
+        const roomSelect = document.getElementById('import-room-type');
+        if (!hotelSelect || !roomSelect) return;
+
+        const hotelId = hotelSelect.value;
+        const hotel = HOTELS_DB.find(h => h.id === hotelId);
+        if (!hotel) return;
+
+        roomSelect.innerHTML = hotel.rooms.map(room => 
+            `<option value="${room.type}">${room.type}</option>`
+        ).join('');
+    }
+
+    handleImportSubmit() {
+        const hotelId = document.getElementById('import-hotel-id').value;
+        const fullName = document.getElementById('import-fullname').value.trim();
+        const checkin = document.getElementById('import-checkin').value;
+        const checkout = document.getElementById('import-checkout').value;
+        const roomType = document.getElementById('import-room-type').value;
+        const guests = document.getElementById('import-guests').value;
+        const reference = document.getElementById('import-reference').value.trim();
+        const total = document.getElementById('import-total').value;
+
+        if (!hotelId || !fullName || !checkin || !checkout || !roomType || !guests || !reference || !total) {
+            alert('Please fill out all required fields.');
+            return;
+        }
+
+        const checkinDate = new Date(checkin);
+        const checkoutDate = new Date(checkout);
+
+        if (checkoutDate <= checkinDate) {
+            alert('Check-out date must be after check-in date.');
+            return;
+        }
+
+        const hotel = HOTELS_DB.find(h => h.id === hotelId);
+        const hotelName = hotel ? hotel.name : 'Luxury Stay';
+
+        const timeDiff = checkoutDate.getTime() - checkinDate.getTime();
+        const nights = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+        const booking = {
+            id: 'bk_' + Date.now(),
+            hotelId: hotelId,
+            hotelName: hotelName,
+            guestName: fullName,
+            checkin: checkin,
+            checkout: checkout,
+            roomType: roomType,
+            guests: parseInt(guests),
+            nights: nights,
+            total: parseFloat(total),
+            reference: reference
+        };
+
+        this.bookings.push(booking);
+        this.saveBookings();
+        this.renderBookings();
+        this.closeImportModal();
+        this.showPage('bookings');
     }
 
     updateBookingSummary(nights, total, rate) {

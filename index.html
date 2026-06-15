@@ -158,6 +158,10 @@
                 <div class="bookings-hero">
                     <h1 class="page-title">Your Reservations Dashboard</h1>
                     <p class="page-subtitle">View and manage your active bookings, view itineraries, or download your Sri Lankan Boarding Passes.</p>
+                    <button class="btn btn-outline" id="btn-open-import-modal" style="margin-top: 1.5rem; display: inline-flex; align-items: center; gap: 0.5rem;">
+                        <i data-lucide="plus-circle" style="width: 18px; height: 18px;"></i>
+                        <span>Import Booking Reference</span>
+                    </button>
                 </div>
 
                 <div class="bookings-container" id="bookings-container">
@@ -394,6 +398,101 @@
                                 Go to My Bookings <i data-lucide="arrow-right"></i>
                             </button>
                         </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Booking Modal -->
+    <div class="modal-backdrop" id="import-modal">
+        <div class="modal-content glass-panel booking-modal-content">
+            <div class="booking-modal-header">
+                <div>
+                    <span class="booking-hotel-label">Ceylon Pass Generator</span>
+                    <h3>Import Guest Reservation</h3>
+                </div>
+                <button class="modal-close-btn" id="close-import-modal">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            <div class="booking-modal-body">
+                <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    Enter your real reservation details (e.g. from Booking.com) to generate your custom printable boarding pass ticket.
+                </p>
+                <form id="import-form" autocomplete="off" onsubmit="return false;">
+                    <div class="form-grid">
+                        <div class="form-control col-span-2">
+                            <label for="import-hotel-id">Select Stay Resort *</label>
+                            <div class="input-with-icon">
+                                <i data-lucide="hotel"></i>
+                                <select id="import-hotel-id" name="hotelId" required>
+                                    <!-- Populated dynamically via JS -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-control col-span-2">
+                            <label for="import-fullname">Guest Full Name *</label>
+                            <div class="input-with-icon">
+                                <i data-lucide="user"></i>
+                                <input type="text" id="import-fullname" name="fullName" placeholder="John Doe" required autocomplete="name">
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="import-checkin">Check-in Date *</label>
+                            <div class="input-with-icon">
+                                <i data-lucide="calendar"></i>
+                                <input type="date" id="import-checkin" name="checkin" required>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="import-checkout">Check-out Date *</label>
+                            <div class="input-with-icon">
+                                <i data-lucide="calendar"></i>
+                                <input type="date" id="import-checkout" name="checkout" required>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="import-room-type">Room Category *</label>
+                            <div class="input-with-icon">
+                                <i data-lucide="bed"></i>
+                                <select id="import-room-type" name="roomType" required>
+                                    <!-- Populated dynamically based on selected hotel -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="import-guests">Guests Count *</label>
+                            <div class="input-with-icon">
+                                <i data-lucide="users"></i>
+                                <select id="import-guests" name="guests" required>
+                                    <option value="1">1 Adult</option>
+                                    <option value="2" selected>2 Adults</option>
+                                    <option value="3">3 Adults</option>
+                                    <option value="4">4 Adults (Family Room)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="import-reference">Booking Reference # *</label>
+                            <div class="input-with-icon">
+                                <i data-lucide="ticket"></i>
+                                <input type="text" id="import-reference" name="reference" placeholder="e.g. 4012.842.091" required>
+                            </div>
+                        </div>
+                        <div class="form-control">
+                            <label for="import-total">Total Price Paid ($) *</label>
+                            <div class="input-with-icon">
+                                <i data-lucide="dollar-sign"></i>
+                                <input type="number" id="import-total" name="total" placeholder="e.g. 520" min="0" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-footer justify-end" style="margin-top: 2rem;">
+                        <button type="submit" class="btn btn-primary" id="btn-import-submit">
+                            Generate Ceylon Pass <i data-lucide="plus-circle"></i>
+                        </button>
                     </div>
                 </form>
             </div>
