@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ceylon Tourism | Explore Sri Lanka & Book Stays</title>
+    <meta name="description" content="Discover the breathtaking landscapes, ancient culture, and golden beaches of Sri Lanka. Find premium luxury hotels and book your dream vacation in one seamless platform.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+    <!-- Ambient Backdrop Gradient -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <!-- Navigation Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <a href="#" class="logo" id="logo-link">
+                <span class="logo-gold">Ceylon</span><span class="logo-white">Tourism</span>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="#explore" class="nav-item active" data-page="explore">
+                    <i data-lucide="map"></i> Explore
+                </a>
+                <a href="#hotels" class="nav-item" data-page="hotels">
+                    <i data-lucide="hotel"></i> Hotels
+                </a>
+                <a href="#bookings" class="nav-item" data-page="bookings">
+                    <i data-lucide="ticket"></i> My Bookings
+                    <span class="booking-badge hidden" id="booking-count">0</span>
+                </a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle Theme">
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <main class="content-wrapper">
+
+        <!-- Explore Page (Destinations) -->
+        <section id="explore-page" class="page-section active">
+            <!-- Hero Banner -->
+            <div class="hero-banner">
+                <div class="hero-image-overlay" style="background-image: url('assets/hero.png');"></div>
+                <div class="hero-content">
+                    <span class="hero-subtitle">Ayubowan • Welcome to Sri Lanka</span>
+                    <h1 class="hero-title">Discover the Pearl of the <span class="highlight-text">Indian Ocean</span></h1>
+                    <p class="hero-description">Experience pristine sandy beaches, misty tea valleys, ancient ruins, and rich wildlife in one small, magical island.</p>
+                    
+                    <!-- Search Widget -->
+                    <div class="search-widget">
+                        <div class="search-input-group">
+                            <i data-lucide="search" class="search-icon"></i>
+                            <input type="text" id="dest-search" placeholder="Search destinations, beaches, cities...">
+                        </div>
+                        <div class="search-divider"></div>
+                        <div class="search-input-group">
+                            <i data-lucide="calendar" class="search-icon"></i>
+                            <input type="text" placeholder="When are you traveling?" onfocus="(this.type='date')" onblur="(this.type='text')" id="hero-travel-date">
+                        </div>
+                        <button class="search-btn" id="hero-search-btn">
+                            <span>Search</span>
+                            <i data-lucide="arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Attractions Section -->
+            <div class="section-container">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">Wonders of Sri Lanka</h2>
+                        <p class="section-subtitle">Handpicked natural, cultural, and historic wonders to add to your bucket list.</p>
+                    </div>
+                    <!-- Category Filters -->
+                    <div class="filter-pills" id="category-filters">
+                        <button class="pill-btn active" data-category="all">All Wonders</button>
+                        <button class="pill-btn" data-category="nature">Nature & Hikes</button>
+                        <button class="pill-btn" data-category="culture">Ancient Culture</button>
+                        <button class="pill-btn" data-category="beach">Coastal Beaches</button>
+                        <button class="pill-btn" data-category="wildlife">Wildlife</button>
+                    </div>
+                </div>
+
+                <!-- Destinations Grid -->
+                <div class="destinations-grid" id="destinations-grid">
+                    <!-- Dynamic Grid Content populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Hotels Page -->
+        <section id="hotels-page" class="page-section">
+            <div class="section-container">
+                <div class="hotels-hero">
+                    <h1 class="page-title">Luxury Resorts & Boutique Stays</h1>
+                    <p class="page-subtitle">Immerse yourself in authentic Sri Lankan hospitality, eco-friendly luxury, and breathtaking views.</p>
+                </div>
+
+                <!-- Hotel Filters panel -->
+                <div class="hotel-filters-panel">
+                    <div class="filter-group">
+                        <label for="hotel-location-filter">Location</label>
+                        <select id="hotel-location-filter">
+                            <option value="all">All Locations</option>
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="hotel-rating-filter">Rating</label>
+                        <select id="hotel-rating-filter">
+                            <option value="all">Any Rating</option>
+                            <option value="4.8">Superb (4.8+)</option>
+                            <option value="4.5">Excellent (4.5+)</option>
+                            <option value="4.0">Very Good (4.0+)</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="hotel-price-filter">Price Range</label>
+                        <select id="hotel-price-filter">
+                            <option value="all">Any Price</option>
+                            <option value="under-150">Under $150 / night</option>
+                            <option value="150-300">$150 - $300 / night</option>
+                            <option value="above-300">Above $300 / night</option>
+                        </select>
+                    </div>
+                    <button class="reset-filters-btn" id="reset-hotel-filters">
+                        <i data-lucide="rotate-ccw"></i> Reset
+                    </button>
+                </div>
+
+                <!-- Hotels Grid -->
+                <div class="hotels-grid" id="hotels-grid">
+                    <!-- Dynamic Grid Content populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Bookings Dashboard Page -->
+        <section id="bookings-page" class="page-section">
+            <div class="section-container">
+                <div class="bookings-hero">
+                    <h1 class="page-title">Your Reservations Dashboard</h1>
+                    <p class="page-subtitle">View and manage your active bookings, view itineraries, or download your Sri Lankan Boarding Passes.</p>
+                </div>
+
+                <div class="bookings-container" id="bookings-container">
+                    <!-- Populated dynamically by JS or empty state message -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Destination Details Modal -->
+    <div class="modal-backdrop" id="detail-modal">
+        <div class="modal-content glass-panel detail-modal-content">
+            <button class="modal-close-btn" id="close-detail-modal">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="modal-body" id="detail-modal-body">
+                <!-- Populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Wizard Modal -->
+    <div class="modal-backdrop" id="booking-modal">
+        <div class="modal-content glass-panel booking-modal-content">
+            <!-- Modal Header -->
+            <div class="booking-modal-header">
+                <div>
+                    <span class="booking-hotel-label">Reservation Engine</span>
+                    <h3 id="booking-hotel-name">Luxury Hotel Reservation</h3>
+                </div>
+                <button class="modal-close-btn" id="close-booking-modal">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+
+            <!-- Steps Progress Bar -->
+            <div class="booking-steps-progress">
+                <div class="step-indicator active" id="step-ind-1">
+                    <span class="step-num">1</span>
+                    <span class="step-label">Stay Details</span>
+                </div>
+                <div class="step-line" id="step-line-1"></div>
+                <div class="step-indicator" id="step-ind-2">
+                    <span class="step-num">2</span>
+                    <span class="step-label">Guest Info</span>
+                </div>
+                <div class="step-line" id="step-line-2"></div>
+                <div class="step-indicator" id="step-ind-3">
+                    <span class="step-num">3</span>
+                    <span class="step-label">Payment</span>
+                </div>
+                <div class="step-line" id="step-line-3"></div>
+                <div class="step-indicator" id="step-ind-4">
+                    <span class="step-num">4</span>
+                    <span class="step-label">Done</span>
+                </div>
+            </div>
+
+            <div class="booking-modal-body">
+                <form id="booking-form" autocomplete="off" onsubmit="return false;">
+                    <!-- Step 1: Dates & Room Options -->
+                    <div class="booking-step active" id="booking-step-1">
+                        <h4 class="step-section-title">When and where would you like to stay?</h4>
+                        <div class="form-grid">
+                            <div class="form-control">
+                                <label for="book-checkin">Check-in Date *</label>
+                                <div class="input-with-icon">
+                                    <i data-lucide="calendar"></i>
+                                    <input type="date" id="book-checkin" required>
+                                </div>
+                            </div>
+                            <div class="form-control">
+                                <label for="book-checkout">Check-out Date *</label>
+                                <div class="input-with-icon">
+                                    <i data-lucide="calendar"></i>
+                                    <input type="date" id="book-checkout" required>
+                                </div>
+                            </div>
+                            <div class="form-control">
+                                <label for="book-room-type">Room Type *</label>
+                                <div class="input-with-icon">
+                                    <i data-lucide="bed"></i>
+                                    <select id="book-room-type" required>
+                                        <!-- Populated via JS based on selected hotel -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-control">
+                                <label for="book-guests">Guests *</label>
+                                <div class="input-with-icon">
+                                    <i data-lucide="users"></i>
+                                    <select id="book-guests" required>
+                                        <option value="1">1 Adult</option>
+                                        <option value="2" selected>2 Adults</option>
+                                        <option value="3">3 Adults</option>
+                                        <option value="4">4 Adults (Family Room)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Live Cost Summary -->
+                        <div class="cost-summary-card glass-panel-inner">
+                            <div class="summary-row">
+                                <span class="summary-label">Room Rate:</span>
+                                <span class="summary-val" id="summary-rate">$0 / night</span>
+                            </div>
+                            <div class="summary-row">
+                                <span class="summary-label">Nights:</span>
+                                <span class="summary-val" id="summary-nights">0 nights</span>
+                            </div>
+                            <div class="summary-row border-top">
+                                <span class="summary-label text-bold">Estimated Total:</span>
+                                <span class="summary-val text-bold accent-color" id="summary-total">$0</span>
+                            </div>
+                        </div>
+
+                        <div class="step-footer">
+                            <div></div>
+                            <button type="button" class="btn btn-primary" id="btn-step1-next">
+                                Next Step <i data-lucide="arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Guest Details -->
+                    <div class="booking-step" id="booking-step-2">
+                        <h4 class="step-section-title">Tell us about yourself</h4>
+                        <div class="form-grid">
+                            <div class="form-control col-span-2">
+                                <label for="guest-fullname">Full Name *</label>
+                                <div class="input-with-icon">
+                                    <i data-lucide="user"></i>
+                                    <input type="text" id="guest-fullname" placeholder="John Doe" required autocomplete="name">
+                                </div>
+                            </div>
+                            <div class="form-control">
+                                <label for="guest-email">Email Address *</label>
+                                <div class="input-with-icon">
+                                    <i data-lucide="mail"></i>
+                                    <input type="email" id="guest-email" placeholder="john@example.com" required autocomplete="email">
+                                </div>
+                            </div>
+                            <div class="form-control">
+                                <label for="guest-phone">Phone Number *</label>
+                                <div class="input-with-icon">
+                                    <i data-lucide="phone"></i>
+                                    <input type="tel" id="guest-phone" placeholder="+94 77 123 4567" required autocomplete="tel">
+                                </div>
+                            </div>
+                            <div class="form-control col-span-2">
+                                <label for="guest-notes">Special Requests (Optional)</label>
+                                <textarea id="guest-notes" placeholder="Dietary preferences, high floor, airport transfer request..." rows="3"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="step-footer">
+                            <button type="button" class="btn btn-outline" id="btn-step2-prev">
+                                <i data-lucide="arrow-left"></i> Back
+                            </button>
+                            <button type="button" class="btn btn-primary" id="btn-step2-next">
+                                Proceed to Payment <i data-lucide="credit-card"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Checkout Mock Payment -->
+                    <div class="booking-step" id="booking-step-3">
+                        <h4 class="step-section-title">Secure Simulated Checkout</h4>
+                        <p class="step-section-desc">This is a demo application. Please do not enter real card details. Enter mock details to proceed.</p>
+                        
+                        <div class="payment-card-visual glass-panel-inner">
+                            <div class="card-chip"></div>
+                            <div class="card-number-display" id="card-num-preview">•••• •••• •••• ••••</div>
+                            <div class="card-bottom">
+                                <div class="card-holder-display" id="card-name-preview">CARDHOLDER NAME</div>
+                                <div class="card-expiry-display" id="card-expiry-preview">MM/YY</div>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-control col-span-2">
+                                <label for="card-name">Cardholder Name *</label>
+                                <input type="text" id="card-name" placeholder="John Doe" required autocomplete="cc-name">
+                            </div>
+                            <div class="form-control col-span-2">
+                                <label for="card-number">Card Number *</label>
+                                <input type="text" id="card-number" placeholder="4111 2222 3333 4444" maxlength="19" required autocomplete="cc-number">
+                            </div>
+                            <div class="form-control">
+                                <label for="card-expiry">Expiry Date *</label>
+                                <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5" required autocomplete="cc-exp">
+                            </div>
+                            <div class="form-control">
+                                <label for="card-cvc">CVC *</label>
+                                <input type="password" id="card-cvc" placeholder="•••" maxlength="3" required autocomplete="cc-csc">
+                            </div>
+                        </div>
+
+                        <div class="step-footer">
+                            <button type="button" class="btn btn-outline" id="btn-step3-prev">
+                                <i data-lucide="arrow-left"></i> Back
+                            </button>
+                            <button type="button" class="btn btn-primary btn-accent" id="btn-step3-submit">
+                                Pay and Confirm Booking <i data-lucide="check-circle-2"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Success Confirmed screen -->
+                    <div class="booking-step text-center" id="booking-step-4">
+                        <div class="success-animation-container">
+                            <div class="success-checkmark-circle">
+                                <i data-lucide="check" class="checkmark-icon"></i>
+                            </div>
+                        </div>
+                        <h3 class="success-title">Booking Confirmed!</h3>
+                        <p class="success-desc">Ayubowan! Your stay has been successfully reserved. A digital boarding pass has been added to your dashboard.</p>
+                        
+                        <div class="ticket-summary-card glass-panel-inner" id="booking-success-summary">
+                            <!-- Populated on success -->
+                        </div>
+
+                        <div class="step-footer justify-center">
+                            <button type="button" class="btn btn-primary" id="btn-success-close">
+                                Go to My Bookings <i data-lucide="arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-col branding">
+                <span class="logo-gold">Ceylon</span><span class="logo-white">Tourism</span>
+                <p class="footer-desc">Your ultimate companion to exploring the majestic beauty and luxury experiences of Sri Lanka.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon"><i data-lucide="facebook"></i></a>
+                    <a href="#" class="social-icon"><i data-lucide="instagram"></i></a>
+                    <a href="#" class="social-icon"><i data-lucide="twitter"></i></a>
+                    <a href="#" class="social-icon"><i data-lucide="youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-title">Top Destinations</h4>
+                <ul class="footer-links">
+                    <li><a href="#explore" onclick="app.showPage('explore'); app.filterWonders('culture')">Sigiriya Rock Fortress</a></li>
+                    <li><a href="#explore" onclick="app.showPage('explore'); app.filterWonders('nature')">Ella Scenic Hills</a></li>
+                    <li><a href="#explore" onclick="app.showPage('explore'); app.filterWonders('beach')">Galle Colonial Fort</a></li>
+                    <li><a href="#explore" onclick="app.showPage('explore'); app.filterWonders('wildlife')">Yala Wildlife Safari</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 class="footer-title">Travel Info</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Visa Information (ETA)</a></li>
+                    <li><a href="#">Best Time to Visit</a></li>
+                    <li><a href="#">Local Transport</a></li>
+                    <li><a href="#">Currency & Culture</a></li>
+                </ul>
+            </div>
+            <div class="footer-col contact">
+                <h4 class="footer-title">Ceylon Concierge</h4>
+                <p><i data-lucide="phone" class="inline-icon"></i> +94 11 234 5678</p>
+                <p><i data-lucide="mail" class="inline-icon"></i> contact@ceylontourism.lk</p>
+                <p><i data-lucide="map-pin" class="inline-icon"></i> Colombo 03, Sri Lanka</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Ceylon Tourism Agency. All Rights Reserved. Built with ❤️ for Sri Lanka.</p>
+        </div>
+    </footer>
+
+    <!-- App JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
