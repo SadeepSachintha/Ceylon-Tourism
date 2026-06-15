@@ -2,6 +2,8 @@
 
 A premium, highly interactive, and visually stunning Single-Page Application (SPA) designed to showcase the majestic wonders of Sri Lanka and facilitate luxury hotel reservations in one elegant platform.
 
+**A premium product of [SS Labz](https://ss-labz.pages.dev/).**
+
 ---
 
 ## ✨ Features
@@ -76,3 +78,9 @@ Ceylon Tourism/
 This website is ready for deployment onto Netlify:
 - Netlify Forms will auto-detect the `reservations` form name from the HTML parameters.
 - Submit actions are performed asynchronously using background `fetch` URLs to ensure the SPA receipt details display without interrupting the user experience.
+
+---
+
+## 🏢 Credits & Branding
+
+This product is created, branded, and maintained by **[SS Labz](https://ss-labz.pages.dev/)**. All design, assets, and development credits belong to SS Labz.
