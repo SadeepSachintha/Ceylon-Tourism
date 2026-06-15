@@ -216,7 +216,14 @@
             </div>
 
             <div class="booking-modal-body">
-                <form id="booking-form" autocomplete="off" onsubmit="return false;">
+                <form id="booking-form" name="reservations" data-netlify="true" autocomplete="off" onsubmit="return false;">
+                    <!-- Netlify Form Hidden Fields -->
+                    <input type="hidden" name="form-name" value="reservations">
+                    <input type="hidden" name="hotelName" id="hidden-hotel-name">
+                    <input type="hidden" name="totalPrice" id="hidden-total-price">
+                    <input type="hidden" name="reference" id="hidden-reference">
+                    <input type="hidden" name="nights" id="hidden-nights">
+
                     <!-- Step 1: Dates & Room Options -->
                     <div class="booking-step active" id="booking-step-1">
                         <h4 class="step-section-title">When and where would you like to stay?</h4>
@@ -225,21 +232,21 @@
                                 <label for="book-checkin">Check-in Date *</label>
                                 <div class="input-with-icon">
                                     <i data-lucide="calendar"></i>
-                                    <input type="date" id="book-checkin" required>
+                                    <input type="date" id="book-checkin" name="checkin" required>
                                 </div>
                             </div>
                             <div class="form-control">
                                 <label for="book-checkout">Check-out Date *</label>
                                 <div class="input-with-icon">
                                     <i data-lucide="calendar"></i>
-                                    <input type="date" id="book-checkout" required>
+                                    <input type="date" id="book-checkout" name="checkout" required>
                                 </div>
                             </div>
                             <div class="form-control">
                                 <label for="book-room-type">Room Type *</label>
                                 <div class="input-with-icon">
                                     <i data-lucide="bed"></i>
-                                    <select id="book-room-type" required>
+                                    <select id="book-room-type" name="roomType" required>
                                         <!-- Populated via JS based on selected hotel -->
                                     </select>
                                 </div>
@@ -248,7 +255,7 @@
                                 <label for="book-guests">Guests *</label>
                                 <div class="input-with-icon">
                                     <i data-lucide="users"></i>
-                                    <select id="book-guests" required>
+                                    <select id="book-guests" name="guests" required>
                                         <option value="1">1 Adult</option>
                                         <option value="2" selected>2 Adults</option>
                                         <option value="3">3 Adults</option>
@@ -290,26 +297,26 @@
                                 <label for="guest-fullname">Full Name *</label>
                                 <div class="input-with-icon">
                                     <i data-lucide="user"></i>
-                                    <input type="text" id="guest-fullname" placeholder="John Doe" required autocomplete="name">
+                                    <input type="text" id="guest-fullname" name="fullName" placeholder="John Doe" required autocomplete="name">
                                 </div>
                             </div>
                             <div class="form-control">
                                 <label for="guest-email">Email Address *</label>
                                 <div class="input-with-icon">
                                     <i data-lucide="mail"></i>
-                                    <input type="email" id="guest-email" placeholder="john@example.com" required autocomplete="email">
+                                    <input type="email" id="guest-email" name="email" placeholder="john@example.com" required autocomplete="email">
                                 </div>
                             </div>
                             <div class="form-control">
                                 <label for="guest-phone">Phone Number *</label>
                                 <div class="input-with-icon">
                                     <i data-lucide="phone"></i>
-                                    <input type="tel" id="guest-phone" placeholder="+94 77 123 4567" required autocomplete="tel">
+                                    <input type="tel" id="guest-phone" name="phone" placeholder="+94 77 123 4567" required autocomplete="tel">
                                 </div>
                             </div>
                             <div class="form-control col-span-2">
                                 <label for="guest-notes">Special Requests (Optional)</label>
-                                <textarea id="guest-notes" placeholder="Dietary preferences, high floor, airport transfer request..." rows="3"></textarea>
+                                <textarea id="guest-notes" name="notes" placeholder="Dietary preferences, high floor, airport transfer request..." rows="3"></textarea>
                             </div>
                         </div>
 

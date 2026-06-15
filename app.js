@@ -1148,6 +1148,28 @@ class CeylonTourismApp {
         this.bookings.push(newBooking);
         this.saveBookings();
 
+        // Netlify Forms AJAX integration
+        try {
+            // Set hidden inputs before serializing form
+            document.getElementById('hidden-hotel-name').value = this.selectedHotel.name;
+            document.getElementById('hidden-total-price').value = this.calculatedTotal;
+            document.getElementById('hidden-reference').value = newBooking.reference;
+            document.getElementById('hidden-nights').value = this.calculatedNights;
+
+            const form = document.getElementById('booking-form');
+            const formData = new FormData(form);
+
+            fetch("/", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(() => console.log("Reservation successfully recorded via Netlify Forms."))
+            .catch(err => console.warn("Netlify Forms submission failed (expected if not hosted on Netlify environment yet):", err));
+        } catch (e) {
+            console.error("Failed to run Netlify Forms handler:", e);
+        }
+
         // Populate Done Screen Ticket Summary
         const options = { month: 'short', day: 'numeric', year: 'numeric' };
         const checkinFmt = new Date(checkin).toLocaleDateString('en-US', options);
