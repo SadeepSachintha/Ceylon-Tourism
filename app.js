@@ -79,6 +79,78 @@ const DESTINATIONS_DB = [
         bestTime: 'February to June (dry season when animals gather at waterholes)',
         climate: 'Warm & Semi-Arid (29°C - 34°C)',
         nearbyHotels: ['resort', 'jungle']
+    },
+    {
+        id: 'colombo',
+        name: 'Colombo Skyline & Heritage',
+        location: 'Colombo District, Western Province',
+        category: 'culture',
+        image: 'assets/colombo.png',
+        shortDesc: 'A vibrant commercial capital blending modern skyscrapers with colonial architecture and bustling markets.',
+        longDesc: 'Colombo is the commercial capital and largest city of Sri Lanka by population. It is a busy and vibrant place with a mixture of modern life, colonial ruins, and multi-ethnic cultures. The city features a combination of historic structures alongside rapid modernization, like the Lotus Tower.',
+        highlights: [
+            'Visit the Lotus Tower for panoramic night views of the city.',
+            'Walk around Galle Face Green and try local street food like Isso Wade.',
+            'Explore historic colonial structures in the Fort area.',
+            'Visit Gangaramaya Temple, a Buddhist temple displaying beautiful architecture.'
+        ],
+        bestTime: 'January to March',
+        climate: 'Tropical & Humid (27°C - 31°C)',
+        nearbyHotels: ['heritage', 'resort']
+    },
+    {
+        id: 'kandy',
+        name: 'Temple of the Tooth Relic',
+        location: 'Kandy District, Central Province',
+        category: 'culture',
+        image: 'assets/kandy.png',
+        shortDesc: 'The sacred mountain capital hosting the sacred Tooth Relic of Gautama Buddha and a scenic lake.',
+        longDesc: 'Kandy is a major city in Sri Lanka located in the Central Province. It was the last capital of the ancient kings\' era of Sri Lanka. The city lies in the midst of hills in the Kandy plateau, which crosses an area of tropical plantations, mainly tea.',
+        highlights: [
+            'Visit the Temple of the Sacred Tooth Relic (Sri Dalada Maligawa).',
+            'Stroll around Kandy Lake and watch traditional cultural dance shows.',
+            'Explore the Royal Botanical Gardens in Peradeniya.',
+            'Hike to the giant Bahirawakanda Buddha statue for a city view.'
+        ],
+        bestTime: 'December to April',
+        climate: 'Mild & Moderate (22°C - 28°C)',
+        nearbyHotels: ['heritage', 'jungle']
+    },
+    {
+        id: 'trinco',
+        name: 'Nilaveli Beach & Pigeon Island',
+        location: 'Trincomalee District, Eastern Province',
+        category: 'beach',
+        image: 'assets/trinco.png',
+        shortDesc: 'A pristine east coast destination featuring white sand beaches, marine sanctuaries, and whale watching.',
+        longDesc: 'Trincomalee is the administrative headquarters of the Trincomalee District and major resort port city of Eastern Province, Sri Lanka. Located on the east coast of the island, it is home to the famous Nilaveli beach, Koneswaram temple, and Pigeon Island Marine National Park.',
+        highlights: [
+            'Sunbathe on Nilaveli Beach and swim in crystal clear waters.',
+            'Take a boat to Pigeon Island for snorkeling with marine life and reef sharks.',
+            'Visit the historic Koneswaram Hindu Temple standing on a cliff.',
+            'Soak in the geothermal hot wells in Kanniya.'
+        ],
+        bestTime: 'May to September (best East Coast weather)',
+        climate: 'Tropical & Sunny (29°C - 33°C)',
+        nearbyHotels: ['resort']
+    },
+    {
+        id: 'kitulgala',
+        name: 'Kitulgala Rainforest Rapids',
+        location: 'Kegalle District, Sabaragamuwa Province',
+        category: 'nature',
+        image: 'assets/kitulgala.png',
+        shortDesc: 'Sri Lankas adventure capital, famous for white-water rafting, rainforest trekking, and canyoning.',
+        longDesc: 'Kitulgala is a small town in the west of Sri Lanka. It is in the wet zone rainforest, which gets two monsoons each year, and is one of the wettest places in the country. Nevertheless, it comes alive with tourists in search of adventure sports.',
+        highlights: [
+            'Go white-water rafting down the rapids of the Kelani River.',
+            'Try waterfall abseiling and canyoning in natural rock pools.',
+            'Trek through the Makandawa Forest Reserve for bird watching.',
+            'Explore prehistoric caves containing historic human remains.'
+        ],
+        bestTime: 'January to March and June to September',
+        climate: 'Tropical & Wet (24°C - 29°C)',
+        nearbyHotels: ['jungle']
     }
 ];
 
