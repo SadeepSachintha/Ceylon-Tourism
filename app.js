@@ -24,7 +24,7 @@ const DESTINATIONS_DB = [
         ],
         bestTime: 'January to April (dry season)',
         climate: 'Tropical & Dry (28°C - 33°C)',
-        nearbyHotels: ['jungle', 'heritage']
+        nearbyHotels: ['water_garden', 'kandalama']
     },
     {
         id: 'ella',
@@ -78,7 +78,7 @@ const DESTINATIONS_DB = [
         ],
         bestTime: 'February to June (dry season when animals gather at waterholes)',
         climate: 'Warm & Semi-Arid (29°C - 34°C)',
-        nearbyHotels: ['resort', 'jungle']
+        nearbyHotels: ['wild_coast']
     },
     {
         id: 'colombo',
@@ -96,7 +96,7 @@ const DESTINATIONS_DB = [
         ],
         bestTime: 'January to March',
         climate: 'Tropical & Humid (27°C - 31°C)',
-        nearbyHotels: ['heritage', 'resort']
+        nearbyHotels: ['shangrila', 'galle_face']
     },
     {
         id: 'kandy',
@@ -114,7 +114,7 @@ const DESTINATIONS_DB = [
         ],
         bestTime: 'December to April',
         climate: 'Mild & Moderate (22°C - 28°C)',
-        nearbyHotels: ['heritage', 'jungle']
+        nearbyHotels: ['theva']
     },
     {
         id: 'trinco',
@@ -132,7 +132,7 @@ const DESTINATIONS_DB = [
         ],
         bestTime: 'May to September (best East Coast weather)',
         climate: 'Tropical & Sunny (29°C - 33°C)',
-        nearbyHotels: ['resort']
+        nearbyHotels: ['jungle_beach']
     },
     {
         id: 'kitulgala',
@@ -150,7 +150,7 @@ const DESTINATIONS_DB = [
         ],
         bestTime: 'January to March and June to September',
         climate: 'Tropical & Wet (24°C - 29°C)',
-        nearbyHotels: ['jungle']
+        nearbyHotels: ['borderlands']
     }
 ];
 
@@ -223,6 +223,190 @@ const HOTELS_DB = [
             { type: 'Grand Dutch Suite', price: 580 }
         ],
         cityCode: 'GFT'
+    },
+    {
+        id: 'shangrila',
+        name: 'Shangri-La Colombo',
+        location: 'Colombo',
+        rating: 4.9,
+        reviews: 412,
+        price: 290,
+        image: 'assets/shangrila.png',
+        description: 'A premier luxury destination in Colombo overlooking the Indian Ocean. Enjoy premium city skyline views, award-winning restaurants, and a tropical rooftop pool terrace.',
+        amenities: [
+            { name: 'Rooftop Pool', icon: 'droplet' },
+            { name: 'Health Club & Spa', icon: 'sparkles' },
+            { name: 'Ocean View Suites', icon: 'umbrella' },
+            { name: '5-Star Bars', icon: 'wine' },
+            { name: 'Free WiFi', icon: 'wifi' }
+        ],
+        rooms: [
+            { type: 'Deluxe Ocean View Room', price: 290 },
+            { type: 'Executive City Suite', price: 430 },
+            { type: 'Shangri-La Horizon Suite', price: 680 }
+        ],
+        cityCode: 'CMB'
+    },
+    {
+        id: 'theva',
+        name: 'The Theva Residency',
+        location: 'Kandy',
+        rating: 4.8,
+        reviews: 156,
+        price: 170,
+        image: 'assets/theva.png',
+        description: 'Perched on the slopes of Hantana mountain range, this luxury boutique resort offers panoramic views of the hills surrounding Kandy, paired with high-end personalized service.',
+        amenities: [
+            { name: 'Hillside Infinity Pool', icon: 'droplet' },
+            { name: 'Scenic Dining Deck', icon: 'sparkles' },
+            { name: 'Mountain Hiking Access', icon: 'map' },
+            { name: 'Wellness Center', icon: 'activity' },
+            { name: 'Free WiFi', icon: 'wifi' }
+        ],
+        rooms: [
+            { type: 'Deluxe Mountain Suite', price: 170 },
+            { type: 'Penthouse Panorama', price: 280 },
+            { type: 'Theva Grand Villa Suite', price: 450 }
+        ],
+        cityCode: 'KDY'
+    },
+    {
+        id: 'jungle_beach',
+        name: 'Uga Jungle Beach Resort',
+        location: 'Trincomalee',
+        rating: 4.9,
+        reviews: 220,
+        price: 250,
+        image: 'assets/jungle_beach.png',
+        description: 'An exclusive eco-luxury resort in Nilaveli where the jungle meets the ocean. Relax in wooden cabins tucked into the canopy, with private paths to pristine white sands.',
+        amenities: [
+            { name: 'Jungle Pool & Spa', icon: 'droplet' },
+            { name: 'Private Beach Deck', icon: 'umbrella' },
+            { name: 'Dolphin Watching Tour', icon: 'compass' },
+            { name: 'Beachfront Dining', icon: 'wine' },
+            { name: 'Free WiFi', icon: 'wifi' }
+        ],
+        rooms: [
+            { type: 'Jungle Cabin Suite', price: 250 },
+            { type: 'Beachfront Luxury Villa', price: 380 },
+            { type: 'Jungle Lagoon Chalet', price: 490 }
+        ],
+        cityCode: 'TRM'
+    },
+    {
+        id: 'water_garden',
+        name: 'Water Garden Sigiriya',
+        location: 'Sigiriya',
+        rating: 4.8,
+        reviews: 194,
+        price: 340,
+        image: 'assets/water_garden.png',
+        description: 'An upscale architectural oasis set amidst water gardens, streams, and lakes. Designed with luxury chalets that look out directly towards the ancient Sigiriya Rock Fortress.',
+        amenities: [
+            { name: 'Infinity Lake Pool', icon: 'droplet' },
+            { name: 'Premium Wellness Spa', icon: 'sparkles' },
+            { name: 'Bicycle Trails', icon: 'bike' },
+            { name: 'Heliport & Transfers', icon: 'compass' },
+            { name: 'Free WiFi', icon: 'wifi' }
+        ],
+        rooms: [
+            { type: 'Deluxe Lake Villa', price: 340 },
+            { type: 'Premium Pool Villa', price: 510 },
+            { type: 'Duplex Water Villa Suite', price: 790 }
+        ],
+        cityCode: 'SIG'
+    },
+    {
+        id: 'wild_coast',
+        name: 'Wild Coast Tented Lodge',
+        location: 'Yala',
+        rating: 4.9,
+        reviews: 176,
+        price: 620,
+        image: 'assets/wild_coast.png',
+        description: 'A spectacular luxury tented camp situated where the jungle meets the pristine shores of Yala. Resembling giant boulders, the organic dome architecture blends seamlessly with the wilderness.',
+        amenities: [
+            { name: 'Jungle Pool', icon: 'droplet' },
+            { name: 'Spa & Wellness', icon: 'sparkles' },
+            { name: 'Safari Expeditions', icon: 'compass' },
+            { name: 'Beachfront Bar', icon: 'wine' },
+            { name: 'Free WiFi', icon: 'wifi' }
+        ],
+        rooms: [
+            { type: 'Cocoon Suite', price: 620 },
+            { type: 'Cocoon Pool Suite', price: 850 },
+            { type: 'Family Cocoon Suite', price: 1100 }
+        ],
+        cityCode: 'YAL'
+    },
+    {
+        id: 'galle_face',
+        name: 'Galle Face Hotel',
+        location: 'Colombo',
+        rating: 4.8,
+        reviews: 542,
+        price: 210,
+        image: 'assets/galle_face.png',
+        description: 'One of the oldest heritage hotels east of the Suez, this legendary property built in 1864 offers timeless colonial grandeur, oceanfront breezes, and exceptional museum collections.',
+        amenities: [
+            { name: 'Saltwater Pool', icon: 'droplet' },
+            { name: 'Heritage Museum', icon: 'book-open' },
+            { name: 'Oceanfront Terrace', icon: 'umbrella' },
+            { name: 'Fine Dining Pub', icon: 'wine' },
+            { name: 'Free WiFi', icon: 'wifi' }
+        ],
+        rooms: [
+            { type: 'Superior Heritage Room', price: 210 },
+            { type: 'Landmark Ocean Suite', price: 340 },
+            { type: 'The Empress Suite', price: 600 }
+        ],
+        cityCode: 'CMB'
+    },
+    {
+        id: 'kandalama',
+        name: 'Heritance Kandalama',
+        location: 'Sigiriya',
+        rating: 4.8,
+        reviews: 320,
+        price: 280,
+        image: 'assets/kandalama.png',
+        description: 'An architectural masterpiece by Geoffrey Bawa, this eco-resort is built into a cliff face and covered in lush jungle vines. It overlooks the serene Kandalama lake and Sigiriya Rock.',
+        amenities: [
+            { name: 'Cliff Infinity Pool', icon: 'droplet' },
+            { name: 'Forest Spa', icon: 'sparkles' },
+            { name: 'Nature Trails', icon: 'map' },
+            { name: 'Lake View Bar', icon: 'wine' },
+            { name: 'Free WiFi', icon: 'wifi' }
+        ],
+        rooms: [
+            { type: 'Superior Forest Room', price: 280 },
+            { type: 'Panoramic Lake Suite', price: 410 },
+            { type: 'Luxury Royal Suite', price: 650 }
+        ],
+        cityCode: 'SIG'
+    },
+    {
+        id: 'borderlands',
+        name: 'Borderlands Eco Lodge',
+        location: 'Kitulgala',
+        rating: 4.7,
+        reviews: 98,
+        price: 120,
+        image: 'assets/borderlands.png',
+        description: 'Perched on the banks of the Kelani River, this rustic-chic adventure lodge features wooden chalets, open-air dining decks, and quick access to white-water rafting and canyoning.',
+        amenities: [
+            { name: 'River Access', icon: 'droplet' },
+            { name: 'Rafting Gear', icon: 'activity' },
+            { name: 'Adventure Guides', icon: 'compass' },
+            { name: 'Riverside Lounge', icon: 'wine' },
+            { name: 'Free WiFi', icon: 'wifi' }
+        ],
+        rooms: [
+            { type: 'Riverside Wooden Cabin', price: 120 },
+            { type: 'Luxury Safari Tent', price: 170 },
+            { type: 'Family River Villa', price: 290 }
+        ],
+        cityCode: 'KIT'
     }
 ];
 
