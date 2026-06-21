@@ -190,19 +190,10 @@ class _ExploreScreenState extends State<ExploreScreen> {
                               children: [
                                 // Cover Image
                                 Expanded(
-                                  child: Image.network(
+                                  child: Image.asset(
                                     sight.image,
                                     fit: BoxFit.cover,
                                     width: double.infinity,
-                                    loadingBuilder: (context, child, loadingProgress) {
-                                      if (loadingProgress == null) return child;
-                                      return Container(
-                                        color: const Color(0xFF162C2F),
-                                        child: const Center(
-                                          child: CircularProgressIndicator(strokeWidth: 2),
-                                        ),
-                                      );
-                                    },
                                     errorBuilder: (context, error, stackTrace) {
                                       return Container(
                                         color: const Color(0xFF162C2F),

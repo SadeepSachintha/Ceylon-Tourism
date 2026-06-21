@@ -181,7 +181,7 @@ class _StaysScreenState extends State<StaysScreen> {
           // Cover Image
           Stack(
             children: [
-              Image.network(
+              Image.asset(
                 hotel.image,
                 height: 200,
                 width: double.infinity,

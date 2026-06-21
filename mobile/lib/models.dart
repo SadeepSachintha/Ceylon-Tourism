@@ -112,7 +112,7 @@ final List<Attraction> destinationsDb = [
     name: 'Sigiriya Rock Fortress',
     location: 'Matale District, Central Province',
     category: 'culture',
-    image: 'https://images.unsplash.com/photo-1588598130782-690a174d9248?w=800&auto=format&fit=crop',
+    image: 'assets/sigiriya.png',
     shortDesc: 'A colossal 200m column of rock featuring a historical palace and ancient painted frescoes.',
     longDesc: 'Sigiriya is an ancient rock fortress located in the northern Matale District near the town of Dambulla in the Central Province, Sri Lanka. It is dominated by a massive column of rock around 180 metres high. Built by King Kashyapa (477 – 495 AD) as his new capital, it features historic water gardens, ancient graffiti on the Mirror Wall, and gorgeous maidens frescoes.',
     highlights: [
@@ -130,7 +130,7 @@ final List<Attraction> destinationsDb = [
     name: 'Ella Scenic Hills',
     location: 'Badulla District, Uva Province',
     category: 'nature',
-    image: 'https://images.unsplash.com/photo-1546708973-b339540b5162?w=800&auto=format&fit=crop',
+    image: 'assets/ella.png',
     shortDesc: 'A misty mountain village famous for lush tea valleys, waterfalls, and hiking tracks.',
     longDesc: 'Ella is a small town in the Badulla District of Uva Province, situated at an elevation of 1,041 metres above sea level. Surrounded by hills covered with cloud forests and tea plantations, it offers a cool climate, challenging hikes like Little Adams Peak, Ella Rock, and the beautiful Nine Arch Bridge train crossing.',
     highlights: [
@@ -148,7 +148,7 @@ final List<Attraction> destinationsDb = [
     name: 'Galle Fort Ramparts',
     location: 'Galle District, Southern Province',
     category: 'beach',
-    image: 'https://images.unsplash.com/photo-1563299796-17596ed6b017?w=800&auto=format&fit=crop',
+    image: 'assets/galle.png',
     shortDesc: 'A historical Dutch fort, cobblestone streets, lighthouse, and golden south coast beaches.',
     longDesc: 'Galle Fort, on the southwest coast of Sri Lanka, was built in 1588 by the Portuguese, and fortified by the Dutch during the 17th century. It is a UNESCO World Heritage site blending colonial architecture, cobblestone alleys, designer boutiques, and sunset sea views from the fort lighthouse.',
     highlights: [
@@ -166,7 +166,7 @@ final List<Attraction> destinationsDb = [
     name: 'Yala National Park',
     location: 'Hambantota District, Southern Province',
     category: 'wildlife',
-    image: 'https://images.unsplash.com/photo-1581888227599-779811939961?w=800&auto=format&fit=crop',
+    image: 'assets/yala.png',
     shortDesc: 'Sri Lankas premier wildlife sanctuary, hosting one of the highest leopard densities in the world.',
     longDesc: 'Yala National Park is the most visited national park in Sri Lanka, bordering the Indian Ocean. It features semi-arid dry landscapes, thick scrub jungles, and brackish lagoons. It is legendary for leopard spotting, herds of elephants, sloth bears, crocodiles, and peacocks.',
     highlights: [
@@ -184,7 +184,7 @@ final List<Attraction> destinationsDb = [
     name: 'Colombo Skyline & Heritage',
     location: 'Colombo District, Western Province',
     category: 'culture',
-    image: 'https://images.unsplash.com/photo-1568849676085-51415703900f?w=800&auto=format&fit=crop',
+    image: 'assets/colombo.png',
     shortDesc: 'A vibrant commercial capital blending modern skyscrapers with colonial architecture.',
     longDesc: 'Colombo is the commercial capital of Sri Lanka, blending multi-ethnic heritage temples, busy street markets like Pettah, colonial administrative buildings, and modern high-rises including the Lotus Tower and seafront Galle Face Green promenade.',
     highlights: [
@@ -202,7 +202,7 @@ final List<Attraction> destinationsDb = [
     name: 'Temple of the Tooth Relic',
     location: 'Kandy District, Central Province',
     category: 'culture',
-    image: 'https://images.unsplash.com/photo-1625736340989-130090875e53?w=800&auto=format&fit=crop',
+    image: 'assets/kandy.png',
     shortDesc: 'The sacred mountain capital hosting the sacred Tooth Relic of Gautama Buddha.',
     longDesc: 'Kandy was the last capital of the ancient kings\' era of Sri Lanka. Nestled in a plateau of mist-bound hills, the city hosts the sacred Buddhist relic of the tooth of the Buddha, sits around a scenic lake, and borders extensive tea plantations.',
     highlights: [
@@ -220,7 +220,7 @@ final List<Attraction> destinationsDb = [
     name: 'Nilaveli Beach & Pigeon Island',
     location: 'Trincomalee District, Eastern Province',
     category: 'beach',
-    image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800&auto=format&fit=crop',
+    image: 'assets/trinco.png',
     shortDesc: 'A pristine east coast destination featuring white sand beaches and marine sanctuaries.',
     longDesc: 'Trincomalee is a major resort city on the east coast of Sri Lanka. It features deep natural harbors, hot wells, and is the gateway to Nilaveli Beach and Pigeon Island Marine National Park—a top-tier site for viewing live coral reefs and snorkeling.',
     highlights: [
@@ -238,7 +238,7 @@ final List<Attraction> destinationsDb = [
     name: 'Kitulgala Rainforest Rapids',
     location: 'Kegalle District, Sabaragamuwa Province',
     category: 'nature',
-    image: 'https://images.unsplash.com/photo-1502784444187-359ac186c5bb?w=800&auto=format&fit=crop',
+    image: 'assets/kitulgala.png',
     shortDesc: 'Sri Lankas adventure capital, famous for white-water rafting and canyoning.',
     longDesc: 'Kitulgala is in the wet zone rainforest, making it one of the wettest spots in Sri Lanka. It is the destination of choice for eco-adventures including Kelani river rafting, jungle canyoning, and rainforest bird watching.',
     highlights: [
@@ -261,7 +261,7 @@ final List<Hotel> hotelsDb = [
     rating: 4.9,
     reviews: 248,
     price: 260,
-    image: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800&auto=format&fit=crop',
+    image: 'assets/resort.png',
     description: 'Overlooking the turquoise waves of the south coast, this resort blends ultra-modern design with absolute beachfront luxury. Perfect for surfers, couples, and sun seekers.',
     amenities: [
       Amenity(name: 'Infinity Pool', icon: Icons.waves),
@@ -284,7 +284,7 @@ final List<Hotel> hotelsDb = [
     rating: 4.8,
     reviews: 182,
     price: 180,
-    image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&auto=format&fit=crop',
+    image: 'assets/jungle.png',
     description: 'Nestled in the lush hills of Ella, this eco-lodge offers treehouse villas built into the canopy, providing panoramic views of misty tea estates and waterfalls.',
     amenities: [
       Amenity(name: 'Plunge Pool', icon: Icons.pool),
@@ -307,7 +307,7 @@ final List<Hotel> hotelsDb = [
     rating: 4.7,
     reviews: 310,
     price: 320,
-    image: 'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800&auto=format&fit=crop',
+    image: 'assets/heritage.png',
     description: 'A restored 17th-century colonial villa situated inside the historic Galle Fort. Walk through whitewashed corridors and relax in a tranquil courtyard pool.',
     amenities: [
       Amenity(name: 'Courtyard Pool', icon: Icons.pool),
@@ -330,7 +330,7 @@ final List<Hotel> hotelsDb = [
     rating: 4.9,
     reviews: 412,
     price: 290,
-    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&auto=format&fit=crop',
+    image: 'assets/shangrila.png',
     description: 'A premier luxury destination in Colombo overlooking the Indian Ocean. Enjoy premium city skyline views, award-winning restaurants, and a tropical rooftop pool terrace.',
     amenities: [
       Amenity(name: 'Rooftop Pool', icon: Icons.pool),
@@ -353,7 +353,7 @@ final List<Hotel> hotelsDb = [
     rating: 4.8,
     reviews: 156,
     price: 170,
-    image: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&auto=format&fit=crop',
+    image: 'assets/theva.png',
     description: 'Perched on the slopes of Hantana mountain range, this luxury boutique resort offers panoramic views of the hills surrounding Kandy, paired with high-end personalized service.',
     amenities: [
       Amenity(name: 'Hillside Infinity Pool', icon: Icons.pool),
@@ -376,7 +376,7 @@ final List<Hotel> hotelsDb = [
     rating: 4.9,
     reviews: 220,
     price: 250,
-    image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&auto=format&fit=crop',
+    image: 'assets/jungle_beach.png',
     description: 'An exclusive eco-luxury resort in Nilaveli where the jungle meets the ocean. Relax in wooden cabins tucked into the canopy, with private paths to pristine white sands.',
     amenities: [
       Amenity(name: 'Jungle Pool & Spa', icon: Icons.spa),
@@ -399,7 +399,7 @@ final List<Hotel> hotelsDb = [
     rating: 4.8,
     reviews: 194,
     price: 340,
-    image: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800&auto=format&fit=crop',
+    image: 'assets/water_garden.png',
     description: 'An upscale architectural oasis set amidst water gardens, streams, and lakes. Designed with luxury chalets that look out directly towards the ancient Sigiriya Rock Fortress.',
     amenities: [
       Amenity(name: 'Infinity Lake Pool', icon: Icons.pool),
@@ -422,7 +422,7 @@ final List<Hotel> hotelsDb = [
     rating: 4.9,
     reviews: 176,
     price: 620,
-    image: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&auto=format&fit=crop',
+    image: 'assets/wild_coast.png',
     description: 'A spectacular luxury tented camp situated where the jungle meets the pristine shores of Yala. Resembling giant boulders, the organic dome architecture blends seamlessly with the wilderness.',
     amenities: [
       Amenity(name: 'Jungle Pool', icon: Icons.pool),
@@ -445,7 +445,7 @@ final List<Hotel> hotelsDb = [
     rating: 4.8,
     reviews: 542,
     price: 210,
-    image: 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800&auto=format&fit=crop',
+    image: 'assets/galle_face.png',
     description: 'One of the oldest heritage hotels east of the Suez, this legendary property built in 1864 offers timeless colonial grandeur, oceanfront breezes, and exceptional museum collections.',
     amenities: [
       Amenity(name: 'Saltwater Pool', icon: Icons.pool),
@@ -468,7 +468,7 @@ final List<Hotel> hotelsDb = [
     rating: 4.8,
     reviews: 320,
     price: 280,
-    image: 'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=800&auto=format&fit=crop',
+    image: 'assets/kandalama.png',
     description: 'An architectural masterpiece by Geoffrey Bawa, this eco-resort is built into a cliff face and covered in lush jungle vines. It overlooks the serene Kandalama lake and Sigiriya Rock.',
     amenities: [
       Amenity(name: 'Cliff Infinity Pool', icon: Icons.pool),
@@ -491,7 +491,7 @@ final List<Hotel> hotelsDb = [
     rating: 4.7,
     reviews: 98,
     price: 120,
-    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&auto=format&fit=crop',
+    image: 'assets/borderlands.png',
     description: 'Perched on the banks of the Kelani River, this rustic-chic adventure lodge features wooden chalets, open-air dining decks, and quick access to white-water rafting.',
     amenities: [
       Amenity(name: 'River Access', icon: Icons.waves),

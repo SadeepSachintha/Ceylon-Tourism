@@ -23,7 +23,7 @@ class AttractionDetailScreen extends StatelessWidget {
                 // Cover Image Stack
                 Stack(
                   children: [
-                    Image.network(
+                    Image.asset(
                       attraction.image,
                       height: 380,
                       width: double.infinity,
@@ -228,7 +228,7 @@ class AttractionDetailScreen extends StatelessWidget {
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(8),
-                                    child: Image.network(
+                                    child: Image.asset(
                                       hotel.image,
                                       width: 60,
                                       height: 60,
