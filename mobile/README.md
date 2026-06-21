@@ -80,3 +80,28 @@ Run the test suite:
 ```bash
 flutter test
 ```
+
+### 6. Building for Play Store (Release)
+To compile a secure, signed Android App Bundle (`.aab`) ready for uploading to the Google Play Store:
+
+1. **Generate the Upload Keystore**:
+   Run the JDK `keytool` command inside `mobile/` to generate your key:
+   ```bash
+   keytool -genkeypair -v -keystore android/upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+   ```
+2. **Configure local key properties**:
+   Create a local file named `android/key.properties` (which is excluded from Git version control by default) and fill in your signing configurations:
+   ```properties
+   storePassword=your_keystore_password
+   keyPassword=your_key_password
+   keyAlias=upload
+   storeFile=upload-keystore.jks
+   ```
+3. **Compile the App Bundle**:
+   Run the Flutter release compiler:
+   ```bash
+   flutter build appbundle --release
+   ```
+   The output package will be generated at:
+   `build/app/outputs/bundle/release/app-release.aab`
+

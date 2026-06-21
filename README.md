@@ -97,6 +97,13 @@ Ceylon Tourism/
    ```bash
    flutter test
    ```
+6. Build the release Android App Bundle (`.aab`) for Google Play Store upload:
+   - Generate your upload keystore file (e.g. `upload-keystore.jks`) using `keytool` and configure your credentials inside local `android/key.properties` (these credentials are git ignored for security).
+   - Compile the release app bundle:
+     ```bash
+     flutter build appbundle --release
+     ```
+
 
 ---
 
