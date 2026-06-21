@@ -57,19 +57,46 @@ Ceylon Tourism/
 ├── app.js                   # Application State, Routing, Booking logic, & Search algorithms
 ├── index.html               # Main Entry Skeleton & SPA container
 ├── styles.css               # Core CSS variables, typography, layouts, and print styles
-└── README.md                # Project documentation
+├── mobile/                  # Native Mobile App (Flutter)
+│   ├── lib/                 # Dart source files (main.dart, models.dart, screens/)
+│   ├── test/                # Unit and widget tests
+│   ├── pubspec.yaml         # Dependencies and Flutter configurations
+│   └── README.md            # Mobile-specific documentation
+└── README.md                # Root project documentation
 ```
 
 ---
 
 ## 🚀 How to Run Locally
 
-### Using XAMPP (Apache Host)
+### Using XAMPP (Apache Host for Web)
 1. Copy or clone the `Ceylon Tourism` folder into your local XAMPP web root directory (usually `C:\xampp\htdocs\`).
 2. Open the **XAMPP Control Panel** and start the **Apache** server.
 3. Open any modern web browser and navigate to:
    `http://localhost/Ceylon Tourism/`
 4. Use the navigation links to explore attractions, search for stays, and complete mock reservations.
+
+### Using Flutter (Native Mobile App)
+1. Navigate to the `mobile/` directory:
+   ```bash
+   cd mobile
+   ```
+2. Install dependencies:
+   ```bash
+   flutter pub get
+   ```
+3. Run the application (ensure you have an emulator active or specify a web/desktop target):
+   ```bash
+   flutter run
+   ```
+4. Run static analysis to verify compilation health:
+   ```bash
+   flutter analyze
+   ```
+5. Run the test suite:
+   ```bash
+   flutter test
+   ```
 
 ---
 
