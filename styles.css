@@ -2108,3 +2108,359 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     animation: spin 1s linear infinite;
     display: inline-block;
 }
+
+/* ==========================================
+   Itinerary Planner Styles
+   ========================================== */
+
+#planner-page .planner-hero {
+    margin-bottom: 3rem;
+}
+
+.planner-steps-progress {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+    position: relative;
+    padding: 0 1rem;
+}
+
+.planner-step-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    z-index: 2;
+    position: relative;
+    background: var(--bg-primary);
+    padding: 0 15px;
+    transition: background-color var(--transition-medium);
+}
+
+.planner-step-indicator .step-num {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--bg-surface-inner);
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    transition: all var(--transition-medium);
+}
+
+.planner-step-indicator .step-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    transition: color var(--transition-medium);
+}
+
+.planner-step-line {
+    position: absolute;
+    top: 20px;
+    height: 2px;
+    background: var(--border-color);
+    z-index: 1;
+    transition: background-color var(--transition-medium);
+}
+
+#planner-step-line-1 { left: 15%; width: 30%; }
+#planner-step-line-2 { left: 55%; width: 30%; }
+
+.planner-step-indicator.active .step-num {
+    border-color: var(--accent-gold);
+    color: #122123;
+    background: var(--accent-gold);
+    box-shadow: 0 0 15px var(--accent-gold-glow);
+}
+
+.planner-step-indicator.active .step-label {
+    color: var(--text-primary);
+}
+
+.planner-step-indicator.complete .step-num {
+    border-color: var(--accent-teal);
+    color: #fff;
+    background: var(--accent-teal);
+    box-shadow: 0 0 12px var(--accent-teal-glow);
+}
+
+.planner-step-indicator.complete .step-label {
+    color: var(--accent-teal);
+}
+
+.planner-step-line.active {
+    background: var(--accent-teal);
+}
+
+/* Step Panels visibility */
+.planner-step {
+    display: none;
+    animation: fadeIn var(--transition-medium);
+}
+
+.planner-step.active {
+    display: block;
+}
+
+.planner-wizard-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2.5rem;
+}
+
+.planner-step-title {
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.planner-step-title i {
+    width: 20px;
+    height: 20px;
+    color: var(--accent-gold);
+}
+
+/* Day Cards inside Step 2 */
+.planner-day-card {
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.planner-day-card:hover {
+    border-color: var(--border-color-hover);
+}
+
+.planner-highlights-container {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.highlight-checkbox-label {
+    padding: 0.35rem 0.5rem;
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-fast);
+}
+
+.highlight-checkbox-label:hover {
+    background: var(--bg-surface-hover);
+}
+
+/* Timeline Preview inside Step 3 */
+.planner-summary-layout {
+    display: grid;
+    grid-template-columns: 2.2fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+}
+
+.planner-timeline-section {
+    position: relative;
+    padding-left: 1rem;
+}
+
+.timeline-wrapper {
+    position: relative;
+    padding: 1rem 0;
+}
+
+/* Vertical line for the timeline */
+.timeline-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 21px; /* Center of the 42px timeline badge */
+    width: 2px;
+    background: var(--border-color);
+    z-index: 1;
+}
+
+/* Transit nodes along the vertical line */
+.timeline-transit-node {
+    margin: 1.5rem 0;
+}
+
+.day-details-panel {
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+}
+
+.day-details-panel:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Budget Card Styling */
+.budget-card {
+    border-radius: var(--radius-md);
+    position: sticky;
+    top: 110px; /* Stay visible on scroll below header */
+}
+
+.budget-card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.budget-card-title i {
+    width: 18px;
+    height: 18px;
+    color: var(--accent-gold);
+}
+
+.budget-style-indicator {
+    padding: 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.budget-style-indicator.badge-budget {
+    background: rgba(26, 188, 156, 0.15);
+    color: var(--accent-teal);
+    border: 1px solid var(--accent-teal);
+}
+
+.budget-style-indicator.badge-standard {
+    background: rgba(229, 184, 66, 0.15);
+    color: var(--accent-gold);
+    border: 1px solid var(--accent-gold);
+}
+
+.budget-style-indicator.badge-luxury {
+    background: rgba(231, 76, 60, 0.15);
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+}
+
+/* Print Styling Override */
+@media print {
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+    }
+
+    /* Hide screen-only interactive elements */
+    .main-header,
+    .main-footer,
+    .ambient-glow,
+    .nav-links,
+    .header-actions,
+    .planner-hero,
+    .planner-steps-progress,
+    .step-footer,
+    .planner-sidebar-section,
+    .modal-backdrop {
+        display: none !important;
+    }
+
+    /* Force parent wrapper spacing reset */
+    .content-wrapper {
+        margin-top: 0 !important;
+    }
+
+    .section-container {
+        padding: 0 !important;
+        max-width: 100% !important;
+    }
+
+    /* Force print container and timeline styles */
+    .planner-wizard-container {
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+
+    .planner-step {
+        display: none !important;
+    }
+
+    .planner-step#planner-step-3 {
+        display: block !important;
+    }
+
+    .planner-summary-layout {
+        display: block !important; /* Stack columns on printing */
+    }
+
+    .planner-timeline-section {
+        padding-left: 0 !important;
+        width: 100% !important;
+    }
+
+    /* Display hidden print header */
+    .print-itinerary-header.hidden {
+        display: block !important;
+    }
+
+    .print-itinerary-header h2 {
+        color: #000 !important;
+    }
+
+    /* Timeline details printing updates */
+    .timeline-wrapper::before {
+        background: #ccc !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .timeline-badge {
+        background: #fff !important;
+        border: 2px solid #000 !important;
+        color: #000 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .day-details-panel {
+        background: #fdfdfd !important;
+        border: 1px solid #ddd !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .stay-tag {
+        background: #eee !important;
+        border: 1px solid #999 !important;
+        color: #333 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .timeline-transit-node {
+        border-left: 2px dashed #999 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .transit-icon-circle {
+        background: #eee !important;
+        border: 1px solid #999 !important;
+        color: #333 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}

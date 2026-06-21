@@ -421,11 +421,22 @@ class CeylonTourismApp {
         this.selectedHotel = null;
         this.currentStep = 1;
         
+        // Itinerary Planner State
+        this.currentPlannerStep = 1;
+        this.plannerTrip = {
+            name: '',
+            startDate: '',
+            duration: 3,
+            budgetStyle: 'standard',
+            days: []
+        };
+        
         // Cache DOM Elements
         this.pages = {
             explore: document.getElementById('explore-page'),
             hotels: document.getElementById('hotels-page'),
-            bookings: document.getElementById('bookings-page')
+            bookings: document.getElementById('bookings-page'),
+            planner: document.getElementById('planner-page')
         };
         
         this.navLinks = document.querySelectorAll('.nav-links .nav-item');
@@ -449,6 +460,9 @@ class CeylonTourismApp {
 
         // Setup Event Listeners
         this.setupEventListeners();
+
+        // Initialize Itinerary Planner
+        this.initPlanner();
 
         // Initialize Lucide Icons
         if (window.lucide) {
@@ -556,6 +570,8 @@ class CeylonTourismApp {
         // Trigger updates if heading to bookings
         if (pageId === 'bookings') {
             this.renderBookings();
+        } else if (pageId === 'planner') {
+            this.renderPlannerStep();
         }
     }
 
@@ -1616,6 +1632,451 @@ class CeylonTourismApp {
             this.bookings = this.bookings.filter(b => b.id !== bookingId);
             this.saveBookings();
             this.renderBookings();
+        }
+    }
+
+    // ==========================================
+    // Itinerary Planner Methods
+    // ==========================================
+
+    initPlanner() {
+        const checkinInput = document.getElementById('planner-start-date');
+        if (checkinInput) {
+            const today = new Date().toISOString().split('T')[0];
+            checkinInput.min = today;
+            checkinInput.value = today;
+        }
+
+        // Step 1 -> Step 2
+        const btnStep1Next = document.getElementById('btn-planner-step1-next');
+        if (btnStep1Next) {
+            btnStep1Next.addEventListener('click', () => {
+                const name = document.getElementById('planner-trip-name').value.trim();
+                const startDate = document.getElementById('planner-start-date').value;
+                const duration = parseInt(document.getElementById('planner-duration').value);
+                const budgetStyle = document.getElementById('planner-budget-style').value;
+
+                if (!name || !startDate) {
+                    alert('Please enter a trip name and start date.');
+                    return;
+                }
+
+                this.plannerTrip = {
+                    name,
+                    startDate,
+                    duration,
+                    budgetStyle,
+                    days: []
+                };
+
+                this.generateDaysForm();
+                this.goToPlannerStep(2);
+            });
+        }
+
+        // Step 2 Back
+        const btnStep2Prev = document.getElementById('btn-planner-step2-prev');
+        if (btnStep2Prev) {
+            btnStep2Prev.addEventListener('click', () => this.goToPlannerStep(1));
+        }
+
+        // Step 2 -> Step 3
+        const btnStep2Next = document.getElementById('btn-planner-step2-next');
+        if (btnStep2Next) {
+            btnStep2Next.addEventListener('click', () => {
+                const daysContainer = document.getElementById('planner-days-container');
+                const dayCards = daysContainer.querySelectorAll('.planner-day-card');
+                
+                let daysData = [];
+
+                for (let i = 0; i < dayCards.length; i++) {
+                    const card = dayCards[i];
+                    const destSelect = card.querySelector('.planner-dest-select');
+                    const hotelSelect = card.querySelector('.planner-hotel-select');
+                    const notesTextarea = card.querySelector('.planner-day-notes');
+                    
+                    const destId = destSelect.value;
+                    const hotelId = hotelSelect.value;
+                    const notes = notesTextarea.value.trim();
+
+                    // Collect selected highlights
+                    const checkedHighlights = [];
+                    card.querySelectorAll('.planner-highlight-checkbox:checked').forEach(cb => {
+                        checkedHighlights.push(cb.value);
+                    });
+
+                    daysData.push({
+                        dayIndex: i + 1,
+                        destId,
+                        hotelId,
+                        highlights: checkedHighlights,
+                        notes
+                    });
+                }
+
+                this.plannerTrip.days = daysData;
+                this.generateItineraryBlueprint();
+                this.goToPlannerStep(3);
+            });
+        }
+
+        // Step 3 Back
+        const btnStep3Prev = document.getElementById('btn-planner-step3-prev');
+        if (btnStep3Prev) {
+            btnStep3Prev.addEventListener('click', () => this.goToPlannerStep(2));
+        }
+
+        // Print Action
+        const btnPrint = document.getElementById('btn-planner-print');
+        if (btnPrint) {
+            btnPrint.addEventListener('click', () => {
+                window.print();
+            });
+        }
+
+        // Restart Action
+        const btnRestart = document.getElementById('btn-planner-restart');
+        if (btnRestart) {
+            btnRestart.addEventListener('click', () => {
+                document.getElementById('planner-form').reset();
+                const today = new Date().toISOString().split('T')[0];
+                if (checkinInput) checkinInput.value = today;
+                this.goToPlannerStep(1);
+            });
+        }
+    }
+
+    goToPlannerStep(stepNumber) {
+        this.currentPlannerStep = stepNumber;
+
+        // Hide/Show steps
+        for (let i = 1; i <= 3; i++) {
+            const stepEl = document.getElementById(`planner-step-${i}`);
+            const indEl = document.getElementById(`planner-step-ind-${i}`);
+            const lineEl = document.getElementById(`planner-step-line-${i-1}`); // 1 less for lines
+
+            if (i === stepNumber) {
+                if (stepEl) stepEl.classList.add('active');
+                if (indEl) {
+                    indEl.classList.add('active');
+                    indEl.classList.remove('complete');
+                }
+            } else if (i < stepNumber) {
+                if (stepEl) stepEl.classList.remove('active');
+                if (indEl) {
+                    indEl.classList.remove('active');
+                    indEl.classList.add('complete');
+                }
+                if (lineEl) lineEl.classList.add('active');
+            } else {
+                if (stepEl) stepEl.classList.remove('active');
+                if (indEl) {
+                    indEl.classList.remove('active');
+                    indEl.classList.remove('complete');
+                }
+                if (lineEl) lineEl.classList.remove('active');
+            }
+        }
+
+        // Scroll to top of planner section
+        const target = document.getElementById('planner-page');
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    generateDaysForm() {
+        const container = document.getElementById('planner-days-container');
+        if (!container) return;
+
+        container.innerHTML = '';
+        const duration = this.plannerTrip.duration;
+
+        // Pre-defined ordered itinerary defaults for better UX
+        const defaultRoute = ['colombo', 'kandy', 'sigiriya', 'ella', 'yala', 'galle', 'trinco', 'kitulgala'];
+
+        for (let i = 0; i < duration; i++) {
+            const dayNum = i + 1;
+            
+            // Choose logical default destination from route list, fallback to sigiriya
+            const defaultDest = defaultRoute[i % defaultRoute.length];
+
+            const dayCard = document.createElement('div');
+            dayCard.className = 'planner-day-card glass-panel-inner';
+            dayCard.style.marginBottom = '1.5rem';
+            dayCard.innerHTML = `
+                <div class="planner-day-card-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; margin-bottom: 1rem;">
+                    <h4 class="day-card-title" style="font-family: var(--font-display); font-size: 1.35rem; color: var(--accent-gold);"><i data-lucide="compass"></i> Day ${dayNum} Stop</h4>
+                    <span class="day-badge" style="font-size: 0.8rem; background: var(--border-color); padding: 0.25rem 0.75rem; border-radius: 20px; font-weight: 600;">Stop Selection</span>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-control">
+                        <label for="planner-day-${dayNum}-dest">Select Destination *</label>
+                        <div class="input-with-icon">
+                            <i data-lucide="map-pin"></i>
+                            <select id="planner-day-${dayNum}-dest" class="planner-dest-select" required>
+                                ${DESTINATIONS_DB.map(d => `<option value="${d.id}" ${d.id === defaultDest ? 'selected' : ''}>${d.name}</option>`).join('')}
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-control">
+                        <label for="planner-day-${dayNum}-hotel">Select Luxury Partner Hotel</label>
+                        <div class="input-with-icon">
+                            <i data-lucide="hotel"></i>
+                            <select id="planner-day-${dayNum}-hotel" class="planner-hotel-select">
+                                <!-- Populated dynamically -->
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-control col-span-2">
+                        <label>Explore Highlights (Select activities to add to itinerary)</label>
+                        <div class="planner-highlights-container" id="planner-day-${dayNum}-highlights" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 0.5rem; margin-top: 0.5rem; background: var(--bg-primary); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color)">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-control col-span-2">
+                        <label for="planner-day-${dayNum}-notes">Custom Notes / Plans for Day ${dayNum}</label>
+                        <textarea id="planner-day-${dayNum}-notes" class="planner-day-notes" rows="2" placeholder="e.g. Catch the sunrise, try the local street foods, or pack a rain jacket..."></textarea>
+                    </div>
+                </div>
+            `;
+
+            container.appendChild(dayCard);
+
+            // Bind change listener to update hotels and highlights based on selected destination
+            const destSelect = dayCard.querySelector('.planner-dest-select');
+            destSelect.addEventListener('change', () => this.updateDayOptions(dayCard, dayNum));
+            
+            // Run initially
+            this.updateDayOptions(dayCard, dayNum);
+        }
+
+        if (window.lucide) {
+            window.lucide.createIcons();
+        }
+    }
+
+    updateDayOptions(dayCard, dayNum) {
+        const destSelect = dayCard.querySelector('.planner-dest-select');
+        const hotelSelect = dayCard.querySelector('.planner-hotel-select');
+        const highlightsContainer = dayCard.querySelector('.planner-highlights-container');
+
+        const destId = destSelect.value;
+        const destination = DESTINATIONS_DB.find(d => d.id === destId);
+        if (!destination) return;
+
+        // 1. Populate Stays dropdown
+        const nearbyHotels = HOTELS_DB.filter(h => destination.nearbyHotels.includes(h.id));
+        
+        hotelSelect.innerHTML = `<option value="none">No Partner Stay (Self-Arranged)</option>` + 
+            nearbyHotels.map(h => `<option value="${h.id}">${h.name} - from $${h.price}/night</option>`).join('');
+
+        // 2. Populate Highlights checkboxes
+        highlightsContainer.innerHTML = destination.highlights.map((hl, index) => `
+            <label class="highlight-checkbox-label" style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer; font-size: 0.9rem;">
+                <input type="checkbox" class="planner-highlight-checkbox" value="${hl}" checked style="margin-top: 0.25rem;">
+                <span>${hl}</span>
+            </label>
+        `).join('');
+
+        if (window.lucide) {
+            window.lucide.createIcons();
+        }
+    }
+
+    generateItineraryBlueprint() {
+        const trip = this.plannerTrip;
+
+        // Stays Cost Calculation
+        let hotelCost = 0;
+        trip.days.forEach(day => {
+            if (day.hotelId !== 'none') {
+                const hotel = HOTELS_DB.find(h => h.id === day.hotelId);
+                if (hotel) {
+                    hotelCost += hotel.price; // Multiply by base price
+                }
+            }
+        });
+
+        // Food & Transit Allowance Calculation based on style
+        let perDayRate = 75;
+        let styleLabel = "Standard Explorer";
+        let styleClass = "badge-standard";
+
+        if (trip.budgetStyle === 'budget') {
+            perDayRate = 30;
+            styleLabel = "Backpacker / Budget";
+            styleClass = "badge-budget";
+        } else if (trip.budgetStyle === 'luxury') {
+            perDayRate = 200;
+            styleLabel = "Luxury Elite";
+            styleClass = "badge-luxury";
+        }
+
+        const transitCost = perDayRate * trip.duration;
+        const totalCost = hotelCost + transitCost;
+
+        // Update Budget DOM elements
+        document.getElementById('blueprint-stays-cost').innerText = `$${hotelCost}`;
+        document.getElementById('blueprint-transit-cost').innerText = `$${transitCost}`;
+        document.getElementById('blueprint-total-cost').innerText = `$${totalCost}`;
+
+        const indicator = document.getElementById('blueprint-style-indicator');
+        if (indicator) {
+            indicator.innerText = `Style: ${styleLabel}`;
+            indicator.className = 'budget-style-indicator';
+            indicator.classList.add(styleClass);
+        }
+
+        // Render timeline
+        this.renderTimeline();
+    }
+
+    renderTimeline() {
+        const timelineWrapper = document.getElementById('blueprint-timeline');
+        if (!timelineWrapper) return;
+
+        const trip = this.plannerTrip;
+
+        // Distances database constant
+        const ROUTE_DISTANCES = {
+            'colombo-sigiriya': { distance: 175, time: '4h 00m', mode: 'Car / Express Bus' },
+            'colombo-galle': { distance: 125, time: '2h 00m', mode: 'Southern Expressway' },
+            'colombo-kandy': { distance: 115, time: '3h 30m', mode: 'Scenic Train / Car' },
+            'colombo-trinco': { distance: 260, time: '5h 30m', mode: 'Train / Car' },
+            'colombo-ella': { distance: 200, time: '6h 00m', mode: 'Main Line Train' },
+            'colombo-kitulgala': { distance: 90, time: '2h 30m', mode: 'Car' },
+            'colombo-yala': { distance: 260, time: '5h 00m', mode: 'Southern Expressway' },
+            'sigiriya-kandy': { distance: 90, time: '2h 15m', mode: 'Car' },
+            'sigiriya-trinco': { distance: 100, time: '2h 00m', mode: 'Car' },
+            'sigiriya-ella': { distance: 170, time: '4h 15m', mode: 'Car' },
+            'galle-yala': { distance: 150, time: '2h 30m', mode: 'Southern Expressway' },
+            'galle-ella': { distance: 190, time: '4h 30m', mode: 'Scenic Taxi' },
+            'kandy-ella': { distance: 140, time: '6h 00m', mode: 'Ella Odyssey Train' },
+            'ella-yala': { distance: 90, time: '2h 15m', mode: 'Car / Taxi' },
+            'kitulgala-colombo': { distance: 90, time: '2h 30m', mode: 'Car' }
+        };
+
+        const getTransitDetails = (fromId, toId) => {
+            if (fromId === toId) return null;
+            
+            // Try A-B key
+            let key = `${fromId}-${toId}`;
+            if (ROUTE_DISTANCES[key]) return ROUTE_DISTANCES[key];
+            
+            // Try B-A key
+            key = `${toId}-${fromId}`;
+            if (ROUTE_DISTANCES[key]) return ROUTE_DISTANCES[key];
+            
+            // Heuristic fallback
+            return { distance: 130, time: '3h 15m', mode: 'Car / Local Highway' };
+        };
+
+        // Header and branding inside timeline print mode
+        let html = `
+            <div class="print-itinerary-header hidden" style="margin-bottom: 2rem; border-bottom: 2px solid var(--accent-gold); padding-bottom: 1rem;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <h2 style="font-family:var(--font-display); font-size:2.2rem; color:var(--accent-gold);">${trip.name}</h2>
+                        <p style="color:var(--text-secondary); margin-top:0.25rem;">Start Date: ${trip.startDate} • Duration: ${trip.duration} Days</p>
+                    </div>
+                    <div style="text-align:right;">
+                        <span style="font-weight:700; color:var(--text-primary); letter-spacing:1px;">CEYLON<span style="color:var(--accent-gold);">TRAVELS</span></span>
+                        <p style="font-size:0.75rem; color:var(--text-muted);">A product of SS Labz</p>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        for (let i = 0; i < trip.days.length; i++) {
+            const day = trip.days[i];
+            const destination = DESTINATIONS_DB.find(d => d.id === day.destId);
+            const hotel = HOTELS_DB.find(h => h.id === day.hotelId);
+            
+            if (!destination) continue;
+
+            // Render transit node if we are not on the first day
+            if (i > 0) {
+                const prevDay = trip.days[i - 1];
+                const transit = getTransitDetails(prevDay.destId, day.destId);
+                
+                if (transit) {
+                    html += `
+                        <div class="timeline-transit-node" style="display:flex; align-items:center; gap: 1rem; margin-left: 2rem; padding: 0.75rem 1rem; border-left: 2px dashed var(--border-color); position:relative;">
+                            <div class="transit-icon-circle" style="width:28px; height:28px; border-radius:50%; background:var(--bg-secondary); border:1px solid var(--border-color); display:flex; align-items:center; justify-content:center; color:var(--accent-gold);">
+                                <i data-lucide="plane" style="width:14px; height:14px; transform: rotate(90deg)"></i>
+                            </div>
+                            <span class="transit-text" style="font-size:0.85rem; color:var(--text-secondary);">
+                                Transit: <strong>${transit.time}</strong> (~${transit.distance} km) via <em>${transit.mode}</em>
+                            </span>
+                        </div>
+                    `;
+                }
+            }
+
+            // Render day card
+            const hotelName = hotel ? hotel.name : 'Self-Arranged Stays';
+            const checkmarkedHtml = day.highlights.map(hl => `
+                <li style="display:flex; align-items:center; gap:0.5rem; font-size:0.9rem; color:var(--text-secondary); margin-bottom:0.25rem;">
+                    <i data-lucide="check" style="color:var(--accent-teal); width:14px; height:14px; flex-shrink:0;"></i>
+                    <span>${hl}</span>
+                </li>
+            `).join('');
+
+            html += `
+                <div class="timeline-day-card" style="display: flex; gap: 1.5rem; position: relative; margin-bottom: 1.5rem;">
+                    <!-- Timeline Node Icon -->
+                    <div class="timeline-badge" style="width: 42px; height: 42px; border-radius: 50%; background: var(--bg-surface-inner); border: 2px solid var(--accent-gold); display: flex; align-items: center; justify-content: center; color: var(--accent-gold); font-weight: 700; flex-shrink: 0; box-shadow: var(--shadow-glow); z-index:2;">
+                        ${day.dayIndex}
+                    </div>
+                    
+                    <!-- Content Card -->
+                    <div class="day-details-panel glass-panel" style="flex: 1; padding: 1.5rem; display: grid; grid-template-columns: 180px 1fr; gap: 1.5rem; align-items: start;">
+                        <div class="day-image" style="background-image: url('${destination.image}'); background-size: cover; background-position: center; border-radius: var(--radius-sm); height: 130px; width: 100%;"></div>
+                        
+                        <div class="day-info" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                            <div style="display:flex; justify-content:space-between; flex-wrap:wrap; align-items:start; gap:0.5rem;">
+                                <div>
+                                    <h4 class="day-title" style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text-primary);">${destination.name}</h4>
+                                    <span style="font-size:0.85rem; color:var(--text-muted); display:flex; align-items:center; gap:4px; margin-top: 2px;">
+                                        <i data-lucide="map-pin" style="width:12px; height:12px;"></i> ${destination.location}
+                                    </span>
+                                </div>
+                                <span class="stay-tag" style="font-size: 0.8rem; background: var(--accent-gold-glow); border: 1px solid var(--accent-gold); color: var(--accent-gold); padding: 0.25rem 0.75rem; border-radius: 20px; font-weight: 600; display:flex; align-items:center; gap:4px;">
+                                    <i data-lucide="hotel" style="width:12px; height:12px;"></i> ${hotelName}
+                                </span>
+                            </div>
+                            
+                            <!-- Highlights list -->
+                            ${day.highlights.length > 0 ? `
+                                <div style="margin-top: 0.5rem;">
+                                    <h5 style="font-size:0.85rem; font-weight:700; text-transform:uppercase; color:var(--text-muted); margin-bottom:0.25rem;">Planned Activities</h5>
+                                    <ul style="list-style:none;">
+                                        ${checkmarkedHtml}
+                                    </ul>
+                                </div>
+                            ` : ''}
+
+                            <!-- Notes list -->
+                            ${day.notes ? `
+                                <div style="margin-top: 0.5rem; background: var(--bg-primary); padding: 0.75rem; border-radius: var(--radius-sm); border-left: 3px solid var(--accent-teal); font-size:0.85rem; color: var(--text-secondary);">
+                                    <strong>My Notes:</strong> ${day.notes}
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        timelineWrapper.innerHTML = html;
+
+        if (window.lucide) {
+            window.lucide.createIcons();
         }
     }
 }
